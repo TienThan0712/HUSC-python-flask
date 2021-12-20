@@ -55,7 +55,6 @@ def login():
     else:
             session['logged_in']=True 
             return redirect(url_for('welcome'))
-	    flash('!You were just logged in!!')
    return render_template('login.html', error=error)
 
 
