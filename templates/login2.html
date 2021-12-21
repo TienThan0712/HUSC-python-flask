@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}"/>
+    <title>Document</title>
+</head>
+<body>
+    <div class="page">
+        <div class="container">
+          <div class="left">
+            <div class="login">Đăng nhập</div>
+            <div class="eula">Quản lý sinh viên</div>
+          </div>
+          <div class="right">
+            <form class="form" action='/' method="post">
+              <div class="form-userName">
+                <label for="email">Tên đăng nhập</label>
+                <input type="text" id="email" name="username" value="{{request.form.username }}">
+              </div>
+              <div class="form-pass">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" value="{{request.form.password }}">
+              </div>
+              <input type="submit" id="submit" value="Submit">
+            </form>
+            {% for message in get_flashed_messages() %}
+                {{message}}
+            {% endfor %}
+
+            {% if error %}
+                <p class="error"> <strong> Error:</strong> {{error}}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+</body>
+</html>

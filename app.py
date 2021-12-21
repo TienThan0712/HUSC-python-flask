@@ -55,7 +55,7 @@ def login():
     else:
             session['logged_in']=True 
             return redirect(url_for('welcome'))
-   return render_template('login.html', error=error)
+   return render_template('login2.html', error=error)
 
 
 @app.route('/rec')

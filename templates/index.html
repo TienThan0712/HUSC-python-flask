@@ -10,40 +10,37 @@
 <lin rel ='stylesheet' href="/home/niyas/New Folder/main.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/menuBase.css') }}"/>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 </head>
   
 <!-- Wrap all page content here -->
 <div id="wrap">
   
   <!-- Fixed navbar -->
-  <div class="navbar navbar-default" data-spy="affix" data-offset-top="60" data-offset-bottom="70" id="navbar">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Quản lý sinh viên</a>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li ><a href="home">Trang Chủ</a></li>
-          <li class="active"><a href="/rec">Danh sách sinh viên</a></li>
-          <li><a href="/sef">Tìm kiếm</a></li>
-          <li><a href="/stud">Thêm sinh viên</a></li>
-          <li><a href="/del">Xóa sinh viên</a></li> 
-          
-           
-
-            </ul>
-          </li>
-        </ul>
-      </div><!--/.nav-collapse -->
+    <div class="header-area overlay">
+      <nav class="navbar navbar-expand-md navbar-dark data-spy="affix"">
+          <div class="container">
+              <a href="#" class="navbar-brand"><img src="https://student.husc.edu.vn/images/logo.png" alt=""></a>
+              
+              <div id="main-nav" class="collapse navbar-collapse">
+                  <ul class="navbar-nav ml-auto">
+                      <li><a href="home" class="nav-item nav-link active">Trang chủ</a></li>
+                      <li><a href="/rec" class="nav-item nav-link">Danh sách sinh viên</a></li>
+                      <li><a href="/sef" class="nav-item nav-link" >Tìm kiếm</a></li>
+                      <li><a href="/stud" class="nav-item nav-link" >Thêm sinh viên</a></li>
+                      <li><a href="/del" class="nav-item nav-link">Xóa sinh viên</a></li>
+                      <li><a href="/logout" class="nav-item nav-link">Đăng xuất</a></li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
     </div>
-  </div>
-</div>
-</div>
 </div>
   </div><!-- /.container-
 <!-- Latest compiled and minified JavaScript -->
@@ -53,33 +50,29 @@
 <style>
      table.equalDevide tr td { width:25%; }
 </style>
-<div align ='center'>
-<table class="equalDevide" cellpadding="1" cellspacing="0" width="70%" border="2px">
-<th>
-  <tr>
-    <td>Tên</td>
-    <td>Điểm 1</td>
-    <td>Điểm 2</td>
-    <td>Điểm 3</td>
-    <td>Lớp</td>
-  </tr>
-{%for a,b,c,d,e in row%}
-<tr>
-<td>{{a}}</td>
-
-<td>{{b}}</td>
-
-
-<td>{{c}}</td>
-
-
-<td>{{d}}</td>
-
-<td>{{e}}</td>
-</tr>
-{% endfor %}
-</th>
-</table>
+<div style="margin-top: 30px;" class="container">
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Tên sinh viên</th>
+				<th scope="col">Điểm môn 1</th>
+				<th scope="col">Điểm môn 2</th>
+				<th scope="col">Điểm 3</th>
+				<th scope="col">Lớp</th>
+			</tr>
+		</thead>
+		<tbody>
+			{%for a,b,c,d,e in row%}
+				<tr>
+					<td>{{a}}</td>
+					<td>{{b}}</td>
+					<td>{{c}}</td>
+					<td>{{d}}</td>
+					<td>{{e}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
 
 
