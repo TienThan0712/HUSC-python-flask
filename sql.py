@@ -1,12 +1,5 @@
 import sqlite3
-
-
-
-
-
 conn = sqlite3.connect('sample.db')
-
-
 conn.execute('''CREATE TABLE students 
        (NAME TEXT  NOT NULL,
        MARK1  TEXT  NOT NULL,
