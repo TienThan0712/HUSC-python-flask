@@ -29,11 +29,10 @@
             
             <div id="main-nav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li><a href="home" class="nav-item nav-link active">Trang chủ</a></li>
+                    <li><a href="home" class="nav-item nav-link ">Trang chủ</a></li>
                     <li><a href="/rec" class="nav-item nav-link">Danh sách sinh viên</a></li>
                     <li><a href="/sef" class="nav-item nav-link" >Tìm kiếm</a></li>
-                    <li><a href="/stud" class="nav-item nav-link" >Thêm sinh viên</a></li>
-                    <li><a href="/del" class="nav-item nav-link">Xóa sinh viên</a></li>
+                    <li><a href="/stud" class="nav-item nav-link active" >Thêm sinh viên</a></li>
                     <li><a href="/logout" class="nav-item nav-link">Đăng xuất</a></li>
                 </ul>
             </div>
@@ -48,28 +47,28 @@
 			<div class="col-6">
 				<div class="form-group">
 					<label for="exampleInputEmail1">Tên sinh viên</label>
-					<input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					<input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
 				</div>
 				<div class="form-group">
-					<label for="exampleInputPassword1">Điêm 1</label>
-					<input TYPE="text" NAME="mark1" class="form-control" id="exampleInputPassword1" >
+					<label for="exampleInputPassword1">Điêm môn 1</label>
+					<input TYPE="number" NAME="mark1" class="form-control" id="exampleInputPassword1" >
 				</div>
 				<div class="form-group">
-					<label for="exampleInputEmail1">Điểm 2</label>
-					<input type="text" name="mark2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					<label for="exampleInputEmail1">Điểm môn 2</label>
+					<input type="number" name="mark2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
 				</div>
 			</div>
 			<div class="col-6">
 				<div class="form-group">
-					<label for="exampleInputPassword1">Điểm tổng</label>
-					<input TYPE="text" NAME="total" class="form-control" id="exampleInputPassword1">
-				</div>
+					<label for="exampleInputPassword1">Điểm môn 3</label>
+					<input TYPE="number" NAME="total" class="form-control" id="exampleInputPassword1" required>
+				</div> 
 				<div class="form-group">
 					<label for="exampleInputEmail1">Lớp</label>
-					<input type="text" name="grade" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					<input type="text" name="grade" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
 				</div>
 		
-				<input type="submit" class="btn btn-primary">Submit</input>
+				<input type="submit" class="btn btn-primary"></input>
 			</div>
 			
 			

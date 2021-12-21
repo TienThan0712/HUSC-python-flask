@@ -4,47 +4,88 @@ from functools import wraps
 import sqlite3
 import os
 app = Flask(__name__)
+
+# Kiểm tra đăng nhập
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            flash('You need to login first.')
             return redirect(url_for('login'))
     return wrap
 
+# Kết nói CSDL
 app.secret_key = os.urandom(24)
 app.database='sample.db'
 conn=sqlite3.connect('sample.db')
+def connect_db():
+ return sqlite3.connect(app.database)
 
-
-@app.route('/welcome')
-@login_required
-def welcome():
- return render_template('welcome.html')
-
+# Trang chủ
 @app.route('/home')
 @login_required
 def home():
  return render_template('home.html')
 
+# Tìm kiếm sinh viên
 @app.route('/sef')
+@login_required
 def sef():
  return render_template('search.html')
 
-@app.route('/sef1')
-def sef1():
- return render_template('search1.html')
-@app.route('/del')
+@app.route('/ser',methods=['POST'])
+@login_required
+def ser():
+ g.db = connect_db()
+ cur=g.db.execute( "select * from students where name like ? ", ["%"+request.form['search']+"%"] )
+ row = cur.fetchall()
+ return render_template("search.html",row=row)
+
+# Sửa sinh viên
+@app.route('/update',methods=['GET','POST'])
 @login_required
 def delt():
- return render_template('del.html')
+ g.db = connect_db()
+ cur=g.db.execute( "select * from students where name = ? ",[request.args.get('name')])
+ row=cur.fetchall()
+ return render_template("update.html",row=row) 
 
+@app.route('/upd', methods=['POST'])
+@login_required
+def upd():
+ g.db=connect_db()
+ g.db.execute('update students set name= ?, mark1=? ,mark2 =? ,total=? ,grade=?  where name=?',(request.form['name'],request.form['mark1'],request.form['mark2'],request.form['total'],request.form['grade'],request.form['name1']),)
+ g.db.commit()
+ return redirect(url_for('home'))
+
+# Xóa sinh viên
+@app.route('/delete',methods=['POST'])
+@login_required
+def delete():
+ g.db = connect_db()
+ g.db.execute( "delete from students where name = ? ", (request.form['delete'],) )
+ g.db.commit()
+ cur=g.db.execute( "select * from students ")
+ row=cur.fetchall()
+ return render_template("index.html",row=row) 
+
+#Thêm sinh viên
 @app.route('/stud', methods=['GET','POST'])
 @login_required
 def stud():
  return render_template('stud.html')
+
+@app.route('/add', methods=['POST'])
+@login_required
+def add():
+ g.db=connect_db()
+ g.db.execute('INSERT INTO students (name,mark1,mark2,total,grade) VALUES(?,?,?,?,?)',[request.form['name'],request.form['mark1'],request.form['mark2'],request.form['total'],request.form['grade']]);
+ g.db.commit()
+ flash('posted')
+ return redirect(url_for('home'))
+
+ # Đăng nhập 
 
 @app.route('/', methods=['GET','POST'])
 def login():
@@ -54,78 +95,25 @@ def login():
             error = 'Invalid Credentials. Please try again.'
     else:
             session['logged_in']=True 
-            return redirect(url_for('welcome'))
+            return redirect(url_for('home'))
    return render_template('login2.html', error=error)
 
-
+# Hiển thị sinh viên
 @app.route('/rec')
+@login_required
 def rec(): 
  g.db = connect_db() 
  cur = g.db.execute('select name,mark1,mark2,total,grade from students')
  
  row = cur.fetchall()  
  return render_template('index.html',row=row)
-@app.route('/rec1')
-def rec1(): 
- g.db = connect_db() 
- cur = g.db.execute('select name,mark1,mark2,total,grade from students')
  
- row = cur.fetchall()  
- return render_template('index1.html',row=row)
-@app.route('/ser',methods=['POST'])
-def ser():
- 
- g.db = connect_db()
- cur=g.db.execute( "select * from students where name = ? ", (request.form['search'],) )
- row = cur.fetchall()
- return render_template("index.html",row=row)
-
-
-@app.route('/ser1',methods=['POST'])
-def ser1():
- 
- g.db = connect_db()
- cur=g.db.execute( "select * from students where name = ? ", (request.form['search'],) )
- row = cur.fetchall()
- return render_template("index1.html",row=row)
-
-
+# Đăng Xuất
 @app.route('/logout')
 @login_required
 def logout():
  session.pop('logged_in',None)
- flash('!!You were just logged out')
  return redirect(url_for('login'))
-
-@app.route('/delete',methods=['POST'])
-@login_required
-def delete():
- g.db = connect_db()
- g.db.execute( "delete from students where name = ? ", (request.form['delete'],) )
- g.db.commit()
- cur=g.db.execute( "select * from students ")
- row=cur.fetchall()
- return render_template("delete.html",row=row) 
-
-
-@app.route('/add', methods=['POST'])
-@login_required
-def add():
- g.db=connect_db()
-             
- g.db.execute('INSERT INTO students (name,mark1,mark2,total,grade) VALUES(?,?,?,?,?)',[request.form['name'],request.form['mark1'],request.form['mark2'],request.form['total'],request.form['grade']]);
- g.db.commit()
- flash('posted')
- return redirect(url_for('home'))
-
-
-@app.route('/search')
-def search():
- return render_template("search.html")
-def connect_db():
- return sqlite3.connect(app.database)
-
-
 
 
 if __name__ == '__main__':

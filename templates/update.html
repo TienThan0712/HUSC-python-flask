@@ -1,13 +1,9 @@
-{% extends "stud.html" %}
 {% block body %}
-<!DOCTYPE html>
+<HEAD>
+ <TITLE> Student details </TITLE>
+ 
 
-<html>
-
-<head>
-    <title>Quản lý sinh viên</title>
-
-<lin rel ='stylesheet' href="/home/niyas/New Folder/main.css">
+<lin rel ='stylesheet' href="stylesheet/main.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/menuBase.css') }}"/>
@@ -17,9 +13,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-</head>
-  
-<!-- Wrap all page content here -->
+
+ </HEAD>     
+
+ <BODY>
+ <!-- Wrap all page content here -->
 <div id="wrap">
   
   <!-- Fixed navbar -->
@@ -30,83 +28,63 @@
             
             <div id="main-nav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li><a href="home" class="nav-item nav-link active">Trang chủ</a></li>
-                    <li><a href="/rec" class="nav-item nav-link">Danh sách sinh viên</a></li>
+                    <li><a href="home" class="nav-item nav-link ">Trang chủ</a></li>
+                    <li><a href="/rec" class="nav-item nav-link active">Danh sách sinh viên</a></li>
                     <li><a href="/sef" class="nav-item nav-link" >Tìm kiếm</a></li>
                     <li><a href="/stud" class="nav-item nav-link" >Thêm sinh viên</a></li>
-                    <li><a href="/del" class="nav-item nav-link">Xóa sinh viên</a></li>
                     <li><a href="/logout" class="nav-item nav-link">Đăng xuất</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 </div>
-</div>
-</div>
- 
-</div>
-  </div><!-- /.container-
+  
+{%for a,b,c,d,e in row%} 
+ <FORM method="post" action="/upd">
+	<div class="container">
+		<div class="row">
+        
+			<div class="col-6">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Tên sinh viên</label>
+					<input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required value="{{a}}">
+                    <input hidden type="text" name="name1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required value="{{a}}">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Điểm môn 1</label>
+					<input TYPE="number" NAME="mark1" class="form-control" id="exampleInputPassword1" required value="{{b}}">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Điểm môn 2</label>
+					<input type="number" name="mark2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required value="{{c}}">
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group">
+					<label for="exampleInputPassword1">Điểm môn 3</label>
+					<input TYPE="number" NAME="total" class="form-control" id="exampleInputPassword1" required value="{{d}}">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Lớp</label>
+					<input type="text" name="grade" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required value="{{e}}">
+				</div>
+		
+				<input type="submit" class="btn btn-primary"></input>
+			</div>
+            
+		</div>
+        
+	</div>
+ </FORM>
+ {% endfor %}
 <!-- Latest compiled and minified JavaScript -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<div align='center'>
-<h1>Quản lý sinh viên</h1>
-{%for a,b,c,d,e in row%}
-
-<style>
-     table.equalDevide tr td { width:25%; }
-</style>
-<div align ='center'>
-<!-- <table class="equalDevide" cellpadding="1" cellspacing="0" width="70%" border="2px">
-<th>
-<tr>
-<td>NAME:{{a}}</td>
-
-<td>MARK1:{{b}}</td>
-
-
-<td>MARK2:{{c}}</td>
-
-
-<td>TOTAL:{{d}}</td>
-
-<td>GRADE:{{e}}</td>
-</tr>
-</th>
-</table> -->
-
-	<table class="table">
-		<thead class="thead-dark">
-			<tr>
-				<th scope="col">Tên sinh viên</th>
-				<th scope="col">Điểm môn 1</th>
-				<th scope="col">Điểm môn 2</th>
-				<th scope="col">Điểm tổng</th>
-				<th scope="col">Lớp</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>NAME:{{a}}</td>
-				<td>MARK1:{{b}}</td>
-				<td>MARK2:{{c}}</td>
-				<td>TOTAL:{{d}}</td>
-				<td>GRADE:{{e}}</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-
-
-</div>
-</div>
-</div>
-
-{% endfor %}
-{% endblock %}
  <script text="javascript">
 document.body.style.backgroundColor="white";
  </script>
-</body>
-</html>
 
-</html>
+ </BODY>
+
+ </HTML>
+{% endblock %}
+
