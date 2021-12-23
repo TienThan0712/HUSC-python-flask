@@ -153,7 +153,7 @@ def recad():
  row = cur.fetchall()  
  return render_template('index2.html',row=row)
 
-# Xóa sinh viên
+# Xóa admin
 @app.route('/deletead',methods=['POST'])
 @login_required
 def deletead():
