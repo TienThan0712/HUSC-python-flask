@@ -1,7 +1,6 @@
-
 {% block body %}
 <HEAD>
- <TITLE> <b>Student details</b> </TITLE>
+ <TITLE> Student details </TITLE>
  
 
 <lin rel ='stylesheet' href="stylesheet/main.css">
@@ -31,52 +30,36 @@
                 <ul class="navbar-nav ml-auto">
                     <li><a href="home" class="nav-item nav-link ">Trang chủ</a></li>
                     <li><a href="/rec" class="nav-item nav-link">Danh sách sinh viên</a></li>
-					<li><a href="/recad" class="nav-item nav-link">Danh sách admin</a></li>
+                    <li><a href="/recad" class="nav-item nav-link active">Danh sách admin</a></li>
                     <li><a href="/sef" class="nav-item nav-link" >Tìm kiếm</a></li>
-                    <li><a href="/stud" class="nav-item nav-link active" >Thêm sinh viên</a></li>
-					<li><a href="/addad" class="nav-item nav-link" >Thêm admin</a></li>
+                    <li><a href="/stud" class="nav-item nav-link" >Thêm sinh viên</a></li>
+                    <li><a href="/addad" class="nav-item nav-link" >Thêm admin</a></li>
                     <li><a href="/logout" class="nav-item nav-link">Đăng xuất</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 </div>
-  
 <h2 style="margin-left: 200px;"> {% for message in get_flashed_messages() %}
 	{{message}}
 	{% endfor %}</h2>
- <FORM method="post" action="/add">
+ <FORM method="post" action="/addadmin">
 	<div class="container">
 		<div class="row">
 			<div class="col-6">
 				<div class="form-group">
-					<label for="exampleInputEmail1">Tên sinh viên</label>
-					<input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+					<label for="exampleInputEmail1">Tên Admin</label>
+					<input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required >
 				</div>
 				<div class="form-group">
-					<label for="exampleInputPassword1">Điêm môn 1</label>
-					<input TYPE="number" NAME="mark1" class="form-control" id="exampleInputPassword1" >
+					<label for="exampleInputPassword1">Mật khẩu</label>
+					<input TYPE="password" NAME="password" class="form-control" id="exampleInputPassword1" required >
 				</div>
-				<div class="form-group">
-					<label for="exampleInputEmail1">Điểm môn 2</label>
-					<input type="number" name="mark2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-				</div>
+                <input type="submit" class="btn btn-primary"></input>
 			</div>
-			<div class="col-6">
-				<div class="form-group">
-					<label for="exampleInputPassword1">Điểm môn 3</label>
-					<input TYPE="number" NAME="total" class="form-control" id="exampleInputPassword1" required>
-				</div> 
-				<div class="form-group">
-					<label for="exampleInputEmail1">Lớp</label>
-					<input type="text" name="grade" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-				</div>
-		
-				<input type="submit" class="btn btn-primary"></input>
-			</div>
-			
-			
+            
 		</div>
+        
 	</div>
  </FORM>
 <!-- Latest compiled and minified JavaScript -->
@@ -88,16 +71,5 @@ document.body.style.backgroundColor="white";
  </BODY>
 
  </HTML>
-
-
-
-
-
-
-
-
-
-
-
 {% endblock %}
 

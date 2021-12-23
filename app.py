@@ -80,9 +80,15 @@ def stud():
 @login_required
 def add():
  g.db=connect_db()
- g.db.execute('INSERT INTO students (name,mark1,mark2,total,grade) VALUES(?,?,?,?,?)',[request.form['name'],request.form['mark1'],request.form['mark2'],request.form['total'],request.form['grade']]);
- g.db.commit()
- flash('posted')
+ cur=g.db.execute( "select * from students where name = ? ",(request.form['name'],))
+ row=cur.fetchall()
+ if len(row)==0:
+    g.db.execute('INSERT INTO students (name,mark1,mark2,total,grade) VALUES(?,?,?,?,?)',[request.form['name'],request.form['mark1'],request.form['mark2'],request.form['total'],request.form['grade']]);
+    g.db.commit()
+    flash('posted')
+ else:
+    flash('SV đã tồn tại')
+    return render_template("stud.html",)
  return redirect(url_for('home'))
 
  # Đăng nhập 
@@ -91,7 +97,10 @@ def add():
 def login():
    error = None
    if request.method == 'POST':
-    if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+    g.db=connect_db()
+    cur=g.db.execute( "select * from admin where user = ? and pass = ? ",[request.form['username'],request.form['password'],])
+    row=cur.fetchall()
+    if len(row)==0:
             error = 'Invalid Credentials. Please try again.'
     else:
             session['logged_in']=True 
@@ -115,6 +124,45 @@ def logout():
  session.pop('logged_in',None)
  return redirect(url_for('login'))
 
+# Thêm admin
+@app.route('/addad', methods=['GET','POST'])
+@login_required
+def addad():
+ return render_template('addadmin.html')
+
+@app.route('/addadmin', methods=['POST'])
+@login_required
+def addadmin():
+ g.db=connect_db()
+ cur=g.db.execute( "select * from admin where user = ? ",(request.form['username'],))
+ row=cur.fetchall()
+ if len(row)==0:
+    g.db.execute('INSERT INTO admin (user,pass) VALUES(?,?)',[request.form['username'],request.form['password'],]);
+ else:
+    flash('Admin đã tồn tại')
+    return render_template("addadmin.html",)
+ return redirect(url_for('home'))
+
+# Hiển thị admin
+@app.route('/recad')
+@login_required
+def recad(): 
+ g.db = connect_db() 
+ cur = g.db.execute('select user,pass from admin')
+ 
+ row = cur.fetchall()  
+ return render_template('index2.html',row=row)
+
+# Xóa sinh viên
+@app.route('/deletead',methods=['POST'])
+@login_required
+def deletead():
+ g.db = connect_db()
+ g.db.execute( "delete from admin where user = ? ", (request.form['delete'],) )
+ g.db.commit()
+ cur=g.db.execute( "select * from admin ")
+ row=cur.fetchall()
+ return render_template("index2.html",row=row) 
 
 if __name__ == '__main__':
  app.run(debug=True)
